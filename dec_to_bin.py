@@ -66,24 +66,25 @@ class base_conversions():
         answer = 0
         for i in range(len(binstr)): # iterates through and multiplies value by correct power of 2 and sums together
             answer += int(binstr[i])*2**(len(binstr)-i-1)
-        return answer
+        return self.bin_beautify(answer)
 
     def bin_to_hex(self, binstr: str):
-        binstr = binstr.split(" ")
+        binstr = binstr.split(" ") # Split the nibbles into a list
         answer = ""
+        # Converts each nibble to hex and adds to answer
         for i in binstr:
             temp = self.bin_to_dec(i)
             if temp > 9:
                 temp = self.hex_values[temp]
             answer = answer+str(temp)
-        return answer
+        return "#"+answer
 
     def dec_to_hex(self, num: int):
         binnum = self.dec_to_bin(num)
         return "#"+self.bin_to_hex(binnum)
 
     def hex_to_bin(self, hexcode: str):
-        hexcode = hexcode[1:] if "#" in hexcode else hexcode
+        hexcode = hexcode[1:].upper() if "#" in hexcode else hexcode.upper()
         hexcode = list(hexcode)
         binstr = ""
         for i in hexcode:
@@ -93,7 +94,6 @@ class base_conversions():
             else:
                 temp = self.dec_to_bin(self.hex_values[i])
             binstr = binstr + temp
-        return binstr
+        return self.bin_beautify(binstr)
     
 b = base_conversions()
-print(b.hex_to_bin("FF"))
