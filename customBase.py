@@ -15,10 +15,18 @@ class customBase():
                 remainder = temp % 26
                 self.base_values[i] = self.alphabet[remainder] * (letter_repeat_counts)
         self.base_info = [base, self.base_values]
+        
+    def find_highest_base_value(self, num):# Returns [place_value, remainder]
+        base = self.base_info[0] # Set the base for easy access
+        while num//2**base != 0: # Find the first power of 2 that doesn't go into num
+            base += 1
+        base -= 1
+        remainder = num - 2**base # Get the remainder of number without the highest binart value that goes into it
+        place_value = base
+        return [place_value, remainder]
     
     def dec_to_base(self, num):
         pass
-        
 
 c = customBase()
 c.create_custom_base(79)
